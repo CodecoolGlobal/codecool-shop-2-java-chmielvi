@@ -3,9 +3,11 @@ package com.codecool.shop.config;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.dao.jdbc.DatabaseManager;
+import com.codecool.shop.dao.jdbc.ProductCategoryDaoJdbc;
+import com.codecool.shop.dao.memory.ProductCategoryDaoMem;
+import com.codecool.shop.dao.memory.ProductDaoMem;
+import com.codecool.shop.dao.memory.SupplierDaoMem;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
@@ -14,6 +16,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 
 @WebListener
 public class Initializer implements ServletContextListener {
@@ -32,6 +35,13 @@ public class Initializer implements ServletContextListener {
 
         //setting up a new product category
         ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
+        DatabaseManager db = DatabaseManager.getInstance();
+        try {
+            db.setup();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        db.saveProductCategory(tablet);
         productCategoryDataStore.add(tablet);
 
         //setting up products and printing it
