@@ -1,9 +1,10 @@
-package com.codecool.shop.dao.implementation;
+package com.codecool.shop.dao.memory;
 
 
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.model.ProductCategory;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class ProductCategoryDaoMem implements ProductCategoryDao {
      */
     private ProductCategoryDaoMem() {
     }
+
 
     public static ProductCategoryDaoMem getInstance() {
         if (instance == null) {
