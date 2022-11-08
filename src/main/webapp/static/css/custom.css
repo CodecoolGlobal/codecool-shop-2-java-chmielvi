@@ -60,3 +60,27 @@
 {
     margin: 0 0 11px;
 }
+
+.card {
+    margin-bottom: 2.4rem;
+}
+
+.card-title {
+ /*   font-family: FreeMono;*/
+    font-family: "Abyssinica SIL";
+    font-size: 1.7rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.card-main-text {
+    font-size: 1.1rem;
+}
+.card-text{
+text-align: center;
+}
+
+.card-header{
+    height: 17rem;
+
+}
