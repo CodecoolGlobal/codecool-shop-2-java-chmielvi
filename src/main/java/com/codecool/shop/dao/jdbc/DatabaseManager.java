@@ -10,7 +10,9 @@ import com.codecool.shop.dao.memory.SupplierDaoMem;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.util.List;
 
+import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import org.postgresql.ds.PGSimpleDataSource;
 
@@ -20,7 +22,7 @@ public class DatabaseManager {
     private ProductDaoJdbc productDao;
     private SupplierDaoJdbc supplierDao;
 
-    private DatabaseManager(){}
+    public DatabaseManager(){}
 
     public void setup() throws SQLException {
         DataSource dataSource = connect();
@@ -31,6 +33,11 @@ public class DatabaseManager {
         supplierDao = SupplierDaoJdbc.getInstance();
         supplierDao.init(dataSource);
     }
+
+    public List<Product> getAllProducts() {
+        return productDao.getAll();
+    }
+
 
     public void saveProductCategory(ProductCategory category){
         productCategoryDao.add(category);
