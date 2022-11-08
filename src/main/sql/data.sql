@@ -1,13 +1,13 @@
-INSERT INTO product_categories (name, description, department) VALUES ('Arts and Crafts', '', '');
-INSERT INTO product_categories (name, description, department) VALUES ('Relationships', '', '');
-INSERT INTO product_categories (name, description, department) VALUES ('Self Development', '', '');
-INSERT INTO product_categories (name, description, department) VALUES ('Nutrition', '', '');
-INSERT INTO product_categories (name, description, department) VALUES ('Survival', '', '');
-INSERT INTO product_categories (name, description, department) VALUES ('Spirituality', '', '');
+INSERT INTO product_categories (name, description, department) VALUES ('Arts and Crafts', 'description', 'department');
+INSERT INTO product_categories (name, description, department) VALUES ('Relationships', 'description', 'department');
+INSERT INTO product_categories (name, description, department) VALUES ('Self Development', 'description', 'department');
+INSERT INTO product_categories (name, description, department) VALUES ('Nutrition', 'description', 'department');
+INSERT INTO product_categories (name, description, department) VALUES ('Survival', 'description', 'department');
+INSERT INTO product_categories (name, description, department) VALUES ('Spirituality', 'description', 'department');
 
-INSERT INTO supplier (name, description) VALUES ('FattyCow Book Publishing', '');
-INSERT INTO supplier (name, description) VALUES ('Food for thought Publishing', '');
-INSERT INTO supplier (name, description) VALUES ('Publicious Book Publishing', '');
+INSERT INTO supplier (name, description) VALUES ('FattyCow Book Publishing', 'description');
+INSERT INTO supplier (name, description) VALUES ('Food for thought Publishing', 'description');
+INSERT INTO supplier (name, description) VALUES ('Publicious Book Publishing', 'description');
 
 
 INSERT INTO products (name, description, price, currency, image, product_category_id, supplier_id) VALUES ('Toilet Paper Origami', 'Delight Your Guests with Fancy Folds and Simple Surface Embellishments.', 12.9, 'EUR', 'origami' , 1, 3);

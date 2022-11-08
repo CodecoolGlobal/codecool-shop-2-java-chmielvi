@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class ConnectionProperties {
 
     private static ConnectionProperties instance;
-    private String filename = "/home/dea/Projects/Java/codecool-shop-1-java-chmielvi/src/main/java/com/codecool/shop/config/ConnectionProperties.java";
+    private String filename = "/home/dea/Projects/Java/codecool-shop-1-java-chmielvi/src/main/resources/connection.properties";
 
     //    Map<String, String> connectionProperties;
     private String url;
@@ -24,7 +24,7 @@ public class ConnectionProperties {
         url = connectionProperties.get("url");
         database = connectionProperties.get("database");
         user = connectionProperties.get("user");
-        password = connectionProperties.get("user");
+        password = connectionProperties.get("password");
         dao = connectionProperties.get("dao");
     }
 
