@@ -4,10 +4,6 @@ import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.jdbc.DatabaseManager;
-import com.codecool.shop.dao.jdbc.ProductCategoryDaoJdbc;
-import com.codecool.shop.dao.memory.ProductCategoryDaoMem;
-import com.codecool.shop.dao.memory.ProductDaoMem;
-import com.codecool.shop.dao.memory.SupplierDaoMem;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
@@ -23,16 +19,16 @@ public class Initializer implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        ProductDao productDataStore = ProductDaoMem.getInstance();
+        /*ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
-
+*/
         //setting up a new supplier
-        Supplier amazon = new Supplier("Amazon", "Digital content and services");
+        /*Supplier amazon = new Supplier("Amazon", "Digital content and services");
         supplierDataStore.add(amazon);
         Supplier lenovo = new Supplier("Lenovo", "Computers");
         supplierDataStore.add(lenovo);
-
+*/
         //setting up a new product category
         ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
         DatabaseManager db = DatabaseManager.getInstance();
@@ -41,7 +37,8 @@ public class Initializer implements ServletContextListener {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        productCategoryDataStore.add(tablet);
+        //db.saveProductCategory(tablet);
+        //productCategoryDataStore.add(tablet);
 
 
         //setting up products and printing it
