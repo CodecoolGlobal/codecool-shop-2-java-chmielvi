@@ -5,7 +5,6 @@ import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.model.ProductCategory;
 
 import javax.sql.DataSource;
-import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,8 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao, DaoJdbc {
 
     private DataSource dataSource;
 
-    private ProductCategoryDaoJdbc() {}
+    private ProductCategoryDaoJdbc() {
+    }
 
     public static ProductCategoryDaoJdbc getInstance() {
         if (instance == null) {
@@ -25,7 +25,7 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao, DaoJdbc {
         return instance;
     }
 
-    public void init(DataSource dataSource){
+    public void init(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
@@ -37,7 +37,6 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao, DaoJdbc {
             statement.setString(1, category.getName());
             statement.setString(2, category.getDescription());
             statement.setString(3, category.getDepartment());
-//            statement.setInt(4, state.getPlayer().getId());
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             resultSet.next();
@@ -79,8 +78,6 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao, DaoJdbc {
         } catch (SQLException exception) {
             throw new RuntimeException(exception);
         }
-
-
 
 
     }

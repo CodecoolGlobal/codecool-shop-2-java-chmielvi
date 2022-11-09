@@ -1,14 +1,14 @@
-package com.codecool.shop.dao.jdbc;
+package com.codecool.shop.service;
 
 import com.codecool.shop.config.ConnectionProperties;
-import com.codecool.shop.dao.ProductCategoryDao;
-import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.SupplierDao;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.codecool.shop.dao.jdbc.ProductCategoryDaoJdbc;
+import com.codecool.shop.dao.jdbc.ProductDaoJdbc;
+import com.codecool.shop.dao.jdbc.SupplierDaoJdbc;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
@@ -52,44 +52,6 @@ public class DatabaseManager {
         return productDao.getBySupplier(id);
     }
 
-
-  /*  public void saveProductCategory(int id){
-        productCategoryDao.add(id);
-    }*/
-
-//    public void savePlayer(Player player) {
-//        PlayerModel model = PlayerModel.getPlayerModel();
-//        model.setUp(player);
-//        playerDao.add(model);
-//    }
-//
-//    public void saveGameState(GameState gameState) {
-//        gameStateDao.add(gameState);
-//    }
-//
-//    public void saveInventory(Inventory inventory) {
-//        System.out.println("saveing  inventory");
-//        inventoryDao.add(inventory);
-//    }
-//
-//    public Inventory getInventory(int playersId){
-//        return inventoryDao.get(playersId);
-//    }
-//
-//
-//    public GameState getExistingGame(int id) {
-//        return gameStateDao.get(id);
-//    }
-//
-//    public Maps getMap(int id) {
-//        System.out.println("get map "+mapsDao.get(id));
-//        return mapsDao.get(id);
-//    }
-//
-//
-//    public List<GameState> getAllCurrentGameState() {
-//        return gameStateDao.getAll();
-//    }
 
     private DataSource connect() throws SQLException {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
