@@ -69,6 +69,7 @@
 }
 .card {
     margin-bottom: 3rem;
+    border-radius: 0.4rem;
 
 }
 
@@ -88,6 +89,7 @@ text-align: center;
 }
 
 .card-header{
+    background-color: white;
     height: 18.4rem;
 
 }
@@ -95,3 +97,72 @@ text-align: center;
 .lead {
     font-weight: 700;
 }
+
+nav {
+    text-align: center;
+    width: 100%;
+}
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: rgba(227, 216, 154, 0.93);
+}
+
+nav ul li {
+    float: left;
+    margin-right: 0.5em;
+}
+
+nav ul li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 60px;
+    text-decoration: none;
+    border-bottom: 0 white;
+    border-top-left-radius: 1em 1em;
+    border-top-right-radius: 1em 1em;
+}
+
+nav ul li a:hover, nav ul li a:focus {
+    color: black;
+    background-color: white;
+    font-weight: bold;
+}
+
+.rightShoppingCart{
+    float:right;!important;
+}
+
+.active {
+    background-color: #04AA6D;
+}
+
+.card-body {
+    text-align: center;
+}
+
+.header {
+    height: 24rem;
+    background-image: url("/static/img/books-background-new.jpeg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: top;
+    background-size: contain;
+   /* height: 30rem;
+    background-image: url("/static/img/mountain1.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;*/
+}
+
+/*height: 24rem;
+background-image: url("/static/img/books-background-new.jpeg");
+background-repeat: no-repeat;
+background-attachment: fixed;
+background-position: top;
+background-size: contain;*/
+
