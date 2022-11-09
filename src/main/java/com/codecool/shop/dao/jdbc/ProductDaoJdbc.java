@@ -77,15 +77,15 @@ public class ProductDaoJdbc implements ProductDao, DaoJdbc {
     }
 
     @Override
-    public List<Product> getBy(Supplier supplier) {
+    public List<Product> getBySupplier(int id) {
         try (Connection conn = dataSource.getConnection()) {
             String sql = "SELECT * FROM products WHERE supplier_id = ?";
             PreparedStatement prepareStatement = conn.prepareStatement(sql);
-            prepareStatement.setInt(1, supplier.getId());
+            prepareStatement.setInt(1, id);
             ResultSet resultSet = prepareStatement.executeQuery();
             List<Product> result = new ArrayList<>();
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
+                int productId = resultSet.getInt("id");
                 String name = resultSet.getString("name");
                 String description = resultSet.getString("description");
                 BigDecimal price = resultSet.getBigDecimal("price");
@@ -95,7 +95,7 @@ public class ProductDaoJdbc implements ProductDao, DaoJdbc {
                 int supplierId = resultSet.getInt("supplier_id");
 
                 Product product = new Product(name, price, currency, description, image, ProductCategoryDaoJdbc.getInstance().find(category), SupplierDaoJdbc.getInstance().find(supplierId) );
-                product.setId(id);
+                product.setId(productId);
                 result.add(product);
             }
             return result;
@@ -107,16 +107,16 @@ public class ProductDaoJdbc implements ProductDao, DaoJdbc {
 
 
     @Override
-    public List<Product> getBy(ProductCategory productCategory) {
+    public List<Product> getByCategory(int id) {
 
         try (Connection conn = dataSource.getConnection()) {
             String sql = "SELECT * FROM products WHERE product_category_id = ?";
             PreparedStatement prepareStatement = conn.prepareStatement(sql);
-            prepareStatement.setInt(1, productCategory.getId());
+            prepareStatement.setInt(1, id);
             ResultSet resultSet = prepareStatement.executeQuery();
             List<Product> result = new ArrayList<>();
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
+                int productId = resultSet.getInt("id");
                 String name = resultSet.getString("name");
                 String description = resultSet.getString("description");
                 BigDecimal price = resultSet.getBigDecimal("price");
@@ -126,7 +126,7 @@ public class ProductDaoJdbc implements ProductDao, DaoJdbc {
                 int supplier = resultSet.getInt("supplier_id");
 
                 Product product = new Product(name, price, currency, description, image, ProductCategoryDaoJdbc.getInstance().find(category), SupplierDaoJdbc.getInstance().find(supplier) );
-                product.setId(id);
+                product.setId(productId);
                 result.add(product);
             }
             return result;
