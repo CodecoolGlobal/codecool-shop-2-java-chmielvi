@@ -2,9 +2,14 @@ package com.codecool.shop.dao.jdbc;
 
 import com.codecool.shop.dao.DaoJdbc;
 import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SupplierDaoJdbc implements SupplierDao, DaoJdbc{
@@ -42,6 +47,23 @@ public class SupplierDaoJdbc implements SupplierDao, DaoJdbc{
 
     @Override
     public List<Supplier> getAll() {
-        return null;
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT * FROM supplier";
+            ResultSet resultSet = conn.createStatement().executeQuery(sql);
+
+            List<Supplier> result = new ArrayList<>();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                String description = resultSet.getString("description");
+
+                Supplier supplier = new Supplier(name, description);
+                supplier.setId(id);
+                result.add(supplier);
+            }
+            return result;
+        } catch (SQLException exception) {
+            throw new RuntimeException(exception);
+        }
     }
 }

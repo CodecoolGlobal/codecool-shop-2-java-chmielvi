@@ -4,9 +4,6 @@ import com.codecool.shop.config.ConnectionProperties;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.memory.ProductCategoryDaoMem;
-import com.codecool.shop.dao.memory.ProductDaoMem;
-import com.codecool.shop.dao.memory.SupplierDaoMem;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -14,6 +11,7 @@ import java.util.List;
 
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
+import com.codecool.shop.model.Supplier;
 import org.postgresql.ds.PGSimpleDataSource;
 
 public class DatabaseManager {
@@ -38,10 +36,26 @@ public class DatabaseManager {
         return productDao.getAll();
     }
 
-
-    public void saveProductCategory(ProductCategory category){
-        productCategoryDao.add(category);
+    public List<ProductCategory> getAllCategories() {
+        return productCategoryDao.getAll();
     }
+
+    public List<Supplier> getAllSuppliers() {
+        return supplierDao.getAll();
+    }
+
+    public List<Product> getProductsByCategory(int id) {
+        return productDao.getByCategory(id);
+    }
+
+    public List<Product> getProductsBySupplier(int id) {
+        return productDao.getBySupplier(id);
+    }
+
+
+  /*  public void saveProductCategory(int id){
+        productCategoryDao.add(id);
+    }*/
 
 //    public void savePlayer(Player player) {
 //        PlayerModel model = PlayerModel.getPlayerModel();

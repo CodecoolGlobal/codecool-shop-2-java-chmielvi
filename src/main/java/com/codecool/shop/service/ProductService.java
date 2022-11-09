@@ -20,10 +20,10 @@ public class ProductService{
         return productCategoryDao.find(categoryId);
     }
 
-    public List<Product> getProductsForCategory(int categoryId){
+    /*public List<Product> getProductsForCategory(int categoryId){
         var category = productCategoryDao.find(categoryId);
         return productDao.getBy(category);
-    }
+    }*/
 
 
 }
