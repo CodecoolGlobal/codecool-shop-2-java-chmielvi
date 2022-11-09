@@ -20,41 +20,19 @@ function addEventListeners() {
 async function leadProducts(event){
     const categoryId = event.target.id
     const products = await getProducts(categoryId)
-    // console.log(products)
+    console.log(products)
+    drawProducts(products)
 }
 
-//
-// async function loadJobsPage(){
-//     currentEndpoint = '/api/jobs?page=';
-//     pageNumber = 1;
-//     const news = await getPages(pageNumber);
-//     drawCards(news)
-// }
-//
-//
-// async function loadNewestPage(){
-//     currentEndpoint = '/api/newest?page=';
-//     pageNumber = 1;
-//     const news = await getPages(pageNumber);
-//     drawCards(news)
-// }
-//
-//
-// async function refreshTopPage(){
-//     const news = await getPages(pageNumber)
-//     drawCards(news)
-// }
-//
-//
 function drawProducts(ProductsList) {
     const productsContainer = document.querySelector("#products")
     productsContainer.innerHTML = ""
     ProductsList.forEach(product => {
         console.log(product)
-        let column = document.createElement('div');
-        column.classList.add("col col-sm-12 col-md-6 col-lg-4")
-        column.innerHTML = getCard(product)
-        productsContainer.appendChild(column)
+        let container = document.createElement('div');
+        container.classList.add('col', 'col-sm-12', 'col-md-6', 'col-lg-4')
+        container.innerHTML = getCard(product)
+        productsContainer.appendChild(container)
     })
 }
 
@@ -62,7 +40,7 @@ function getCard(product){
     // <div className="col col-sm-12 col-md-6 col-lg-4" th:each="product,iterStat : ${products}">
     // <img src="img_girl.jpg" alt="Girl in a jacket" width="500" height="600">
     return `<div class="card">
-                <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/' + ${product.image} + '.png'" alt="" width="348" height="400" />
+                <img class="" src="/static/img/${product.image}.png" alt="" width="348" height="400" />
                 <div class="card-header">
                     <h4 class="card-title">${product.name}</h4>
                     <hr>
@@ -70,7 +48,7 @@ function getCard(product){
                 </div>
                 <div class="card-body">
                     <div class="card-text">
-                        <p class="lead">${product.defaultPrice}</p>
+                        <p class="lead">${product.defaultPrice} ${product.defaultCurrency}</p>
                     </div>
                     <div class="card-text">
                         <a class="btn btn-success" href="#">Add to cart</a>

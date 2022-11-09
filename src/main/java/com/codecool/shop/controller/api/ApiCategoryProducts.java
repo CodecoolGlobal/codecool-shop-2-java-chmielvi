@@ -1,6 +1,7 @@
 package com.codecool.shop.controller.api;
 
 import com.codecool.shop.dao.jdbc.DatabaseManager;
+import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 
 import javax.servlet.annotation.WebServlet;
@@ -22,9 +23,10 @@ public class ApiCategoryProducts extends HttpServlet implements JSONConverter {
         String categoryId = request.getParameter("category_id");
         System.out.println(categoryId);
         DatabaseManager databaseManager = DatabaseManager.getInstance();
-        List<ProductCategory> products = databaseManager.getProductsByCategory(categoryId);
+        List<Product> products = databaseManager.getProductsByCategory(Integer.parseInt(categoryId));
         PrintWriter out = response.getWriter();
         String json = gson.toJson(products);
+        System.out.println(json);
         response.setContentType("api/json");
         response.setCharacterEncoding("UTF-8");
 //        String json = "{\n" +
