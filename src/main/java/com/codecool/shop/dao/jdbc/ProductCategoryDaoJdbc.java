@@ -3,10 +3,13 @@ package com.codecool.shop.dao.jdbc;
 import com.codecool.shop.dao.DaoJdbc;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.memory.ProductCategoryDaoMem;
+import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 
 import javax.sql.DataSource;
+import java.math.BigDecimal;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductCategoryDaoJdbc implements ProductCategoryDao, DaoJdbc {
@@ -59,6 +62,28 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao, DaoJdbc {
 
     @Override
     public List<ProductCategory> getAll() {
-        return null;
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT * FROM product_categories";
+            ResultSet resultSet = conn.createStatement().executeQuery(sql);
+
+            List<ProductCategory> result = new ArrayList<>();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                String description = resultSet.getString("description");
+                String department = resultSet.getString("department");
+
+                ProductCategory category = new ProductCategory(name, description, department);
+                category.setId(id);
+                result.add(category);
+            }
+            return result;
+        } catch (SQLException exception) {
+            throw new RuntimeException(exception);
+        }
+
+
+
+
     }
 }

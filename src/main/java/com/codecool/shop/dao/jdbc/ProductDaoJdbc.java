@@ -9,6 +9,7 @@ import com.codecool.shop.model.Supplier;
 import javax.sql.DataSource;
 import java.math.BigDecimal;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -77,12 +78,61 @@ public class ProductDaoJdbc implements ProductDao, DaoJdbc {
 
     @Override
     public List<Product> getBy(Supplier supplier) {
-        return null;
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT * FROM products WHERE supplier_id = ?";
+            PreparedStatement prepareStatement = conn.prepareStatement(sql);
+            prepareStatement.setInt(1, supplier.getId());
+            ResultSet resultSet = prepareStatement.executeQuery();
+            List<Product> result = new ArrayList<>();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                String description = resultSet.getString("description");
+                BigDecimal price = resultSet.getBigDecimal("price");
+                String currency = resultSet.getString("currency");
+                String image = resultSet.getString("image");
+                int category = resultSet.getInt("product_category_id");
+                int supplierId = resultSet.getInt("supplier_id");
+
+                Product product = new Product(name, price, currency, description, image, ProductCategoryDaoJdbc.getInstance().find(category), SupplierDaoJdbc.getInstance().find(supplierId) );
+                product.setId(id);
+                result.add(product);
+            }
+            return result;
+        } catch (SQLException exception) {
+            throw new RuntimeException(exception);
+        }
     }
+
+
 
     @Override
     public List<Product> getBy(ProductCategory productCategory) {
-        return null;
+
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT * FROM products WHERE product_category_id = ?";
+            PreparedStatement prepareStatement = conn.prepareStatement(sql);
+            prepareStatement.setInt(1, productCategory.getId());
+            ResultSet resultSet = prepareStatement.executeQuery();
+            List<Product> result = new ArrayList<>();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                String description = resultSet.getString("description");
+                BigDecimal price = resultSet.getBigDecimal("price");
+                String currency = resultSet.getString("currency");
+                String image = resultSet.getString("image");
+                int category = resultSet.getInt("product_category_id");
+                int supplier = resultSet.getInt("supplier_id");
+
+                Product product = new Product(name, price, currency, description, image, ProductCategoryDaoJdbc.getInstance().find(category), SupplierDaoJdbc.getInstance().find(supplier) );
+                product.setId(id);
+                result.add(product);
+            }
+            return result;
+        } catch (SQLException exception) {
+            throw new RuntimeException(exception);
+        }
     }
 }
 

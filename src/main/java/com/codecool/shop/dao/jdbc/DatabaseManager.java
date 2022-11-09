@@ -14,6 +14,7 @@ import java.util.List;
 
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
+import com.codecool.shop.model.Supplier;
 import org.postgresql.ds.PGSimpleDataSource;
 
 public class DatabaseManager {
@@ -36,6 +37,22 @@ public class DatabaseManager {
 
     public List<Product> getAllProducts() {
         return productDao.getAll();
+    }
+
+    public List<ProductCategory> getAllCategories() {
+        return productCategoryDao.getAll();
+    }
+
+    public List<Supplier> getAllSuppliers() {
+        return supplierDao.getAll();
+    }
+
+    public List<Product> getProductsByCategory(ProductCategory productCategory) {
+        return productDao.getBy(productCategory);
+    }
+
+    public List<Product> getProductsBySupplier(Supplier supplier) {
+        return productDao.getBy(supplier);
     }
 
 
