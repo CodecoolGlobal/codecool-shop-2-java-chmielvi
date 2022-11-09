@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>CodeCool Reads</title>
+  <link rel="stylesheet" type="text/css" href="/static/css/custom.css" th:href="@{/static/css/custom.css}" />
+    <script type="module" src='/static/js/main.js' defer></script>
+</head>
+<body>
+
+<div th:fragment="copy">
+ <nav>
+    <ul class="ulNav">
+      <li><a th:href="${'/index.html/'}">CodeCool Reads</a></li>
+      <li><a class="login" th:href="${'/login.html/'}" th:attr="data-topic=@{login}">Login</a></li>
+      <li><a class="register" th:href="${'/register.html/'}" th:attr="data-topic=@{register}"> Register</a></li>
+      <li class="rightShoppingCart" style="float:right;" ><a class="shoppingCart" th:href="${'/shoppingCart.html/'}" th:attr="data-topic=@{register}" >Shopping Cart <img src='/static/img/shopping-cart-icon.png'  th:attr="src='/static/img/shopping-cart-icon.png'" alt="cart" /></a></li>
+
+    </ul>
+ </nav>
+    <header class="header">
+    </header>
+  </div>
+
+</body>
+</html>
