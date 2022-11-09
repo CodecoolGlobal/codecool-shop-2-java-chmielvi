@@ -31,11 +31,11 @@
 }
 .item.list-group-item .thumbnail
 {
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 .item.list-group-item .caption
 {
-    padding: 9px 9px 0px 9px;
+    padding: 9px 9px 0 9px;
 }
 .item.list-group-item:nth-of-type(odd)
 {
@@ -62,7 +62,7 @@
 }
 
 .mainTitle {
-    font-family: "Abyssinica SIL";
+    font-family: "Abyssinica SIL", serif;
     font-size: 3rem;
     font-weight: 700;
     margin: 2rem 0 2rem 0;
@@ -75,7 +75,7 @@
 
 .card-title {
  /*   font-family: FreeMono;*/
-    font-family: "Abyssinica SIL";
+    font-family: "Abyssinica SIL", serif;
     font-size: 1.7rem;
     font-weight: 700;
     text-align: center;
@@ -151,6 +151,7 @@ nav ul li a:hover, nav ul li a:focus {
     background-attachment: fixed;
     background-position: top;
     background-size: contain;
+
    /* height: 30rem;
     background-image: url("/static/img/mountain1.jpg");
     background-repeat: no-repeat;
@@ -159,6 +160,26 @@ nav ul li a:hover, nav ul li a:focus {
     background-size: cover;*/
 }
 
+#category_buttons {
+    text-align: center;
+
+}
+
+#category_buttons button {
+    background-color: white;
+    border: none;
+    margin: 0 1.2rem 1.2rem 1.2rem;
+}
+
+#category_buttons button:hover {
+    color: black;
+    background-color: white;
+    font-weight: bold;
+    padding: 0.7rem;
+    border-top-left-radius: 1em 1em;
+    border-top-right-radius: 1em 1em;
+    background-color: rgba(238, 233, 205, 0.93);
+}
 /*height: 24rem;
 background-image: url("/static/img/books-background-new.jpeg");
 background-repeat: no-repeat;
