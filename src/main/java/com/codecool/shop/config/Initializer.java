@@ -41,7 +41,6 @@ public class Initializer implements ServletContextListener {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        db.saveProductCategory(tablet);
         productCategoryDataStore.add(tablet);
 
 
