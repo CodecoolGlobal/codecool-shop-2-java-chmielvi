@@ -34,24 +34,28 @@
 <div class="text-center">
     <h1 class="mainTitle">Codecool Reads Login</h1>
 </div>
-<div id="category_buttons">
-    <th:block th:each="category,iterStat : ${categories}">
-        <button th:id="${category.getId()}" th:text="${category.getName()}"></button>
-</div>
 
+<div class="containerLoginRegister">
+    <div class="cardLoginRegister">
+        <div class="background">
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <form class="loginRegisterForm">
+            <h3>Login</h3>
 
-<div class="container">
-    <div class="card">
-        <form action="/login" method='POST'>
-            <label for='username'></label>
-            <input type='text' id='username' name='username'>
-            <input type='password' id='password' name='password'>
-            <button type='submit'>SUBMIT</button>
+            <label class="loginRegisterLabel" for="username">Username</label>
+            <input class="loginRegisterInput" type="text" placeholder="Email or Phone" id="username">
+
+            <label  class="loginRegisterLabel" for="password">Password</label>
+            <input  class="loginRegisterInput" type="password" placeholder="Password" id="password">
+
+            <button class="loginRegisterButton">Log In</button>
         </form>
+    </div>
     </div>
 
 </div>
-<div th:if="${message != null}" th:text="${message}"></div>
 <script type="text/javascript" th:src="@{/static/js/main.js}"></script>
 <div th:replace="footer.html :: copy"></div>
 
