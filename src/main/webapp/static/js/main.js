@@ -80,5 +80,3 @@ async function apiGet(url) {
         return await response.json();
     }
 }
-
-//"api/category?category_id=1/products"
