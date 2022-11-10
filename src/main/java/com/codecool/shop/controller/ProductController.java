@@ -1,6 +1,7 @@
 package com.codecool.shop.controller;
 
 
+import com.codecool.shop.model.User;
 import com.codecool.shop.service.DatabaseManager;
 
 import com.codecool.shop.config.TemplateEngineUtil;
@@ -26,8 +27,8 @@ public class ProductController extends HttpServlet {
         context.setVariable("categories", databaseManager.getAllCategories());
         context.setVariable("products", databaseManager.getAllProducts());
         context.setVariable("suppliers", databaseManager.getAllSuppliers());
-        System.out.println(databaseManager.getAllSuppliers());
         engine.process("product/index.html", context, resp.getWriter());
+
     }
 
 }

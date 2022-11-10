@@ -37,3 +37,7 @@ INSERT INTO products (name, description, price, currency, image, product_categor
 
 INSERT INTO products (name, description, price, currency, image, product_category_id, supplier_id) VALUES ('The Missionary Position Mother Theresa in Theory and Practice', 'Questions to Mother Teresas fitness to adjudicate on matters of sex and reproduction, and reports on a version of saintly ubiquity.' , 18.9, 'EUR', 'theresa', 6, 2);
 INSERT INTO products (name, description, price, currency, image, product_category_id, supplier_id) VALUES ('Jesus and the G-Spot', 'To remove the nasty from sex in the lives of people who live for God. I am a God-fearin, Jesus-lovin widow and after a 42 year marriage where I learned to love God and my Adam!' , 20.9, 'EUR', 'jesus', 6, 3);
+
+INSERT INTO user_table (username, password) VALUES ('dori', '123456');
+INSERT INTO user_table (username, password) VALUES ('dori', '456789');
+INSERT INTO user_table (username, password) VALUES ('doriana', '789456');

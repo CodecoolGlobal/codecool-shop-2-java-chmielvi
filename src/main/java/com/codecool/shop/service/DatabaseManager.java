@@ -9,9 +9,11 @@ import java.util.List;
 import com.codecool.shop.dao.jdbc.ProductCategoryDaoJdbc;
 import com.codecool.shop.dao.jdbc.ProductDaoJdbc;
 import com.codecool.shop.dao.jdbc.SupplierDaoJdbc;
+import com.codecool.shop.dao.jdbc.UserDaoJdbc;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
+import com.codecool.shop.model.User;
 import org.postgresql.ds.PGSimpleDataSource;
 
 public class DatabaseManager {
@@ -19,6 +21,7 @@ public class DatabaseManager {
     private ProductCategoryDaoJdbc productCategoryDao;
     private ProductDaoJdbc productDao;
     private SupplierDaoJdbc supplierDao;
+    private UserDaoJdbc userDao;
 
     public DatabaseManager(){}
 
@@ -30,6 +33,8 @@ public class DatabaseManager {
         productDao.init(dataSource);
         supplierDao = SupplierDaoJdbc.getInstance();
         supplierDao.init(dataSource);
+        userDao = UserDaoJdbc.getInstance();
+        userDao.init(dataSource);
     }
 
     public List<Product> getAllProducts() {
@@ -52,6 +57,13 @@ public class DatabaseManager {
         return productDao.getBySupplier(id);
     }
 
+
+    public Boolean getUser(String user) {
+        return userDao.findBy(user);
+    }
+    public Boolean getUser(String user, String password) {
+        return userDao.findBy(user, password);
+    }
 
     private DataSource connect() throws SQLException {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
