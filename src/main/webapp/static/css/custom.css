@@ -99,6 +99,7 @@
 }
 
 .card-footer {
+    text-align: center;
 
 }
 
@@ -539,4 +540,130 @@ hrShoppingCart{
     font-family: 'Open Sans', serif;
     font-weight: 600;
     color: #202020;
+}
+
+/*Checkout*/
+
+.mainTitleCheckOut {
+    font-family: "Abyssinica SIL", serif;
+    font-size: 3rem;
+    font-weight: 700;
+    margin: 2rem 17rem 2rem 0;
+}
+
+.allRow {
+    display: -ms-flexbox; /* IE10 */
+    display: flex;
+    -ms-flex-wrap: wrap; /* IE10 */
+    flex-wrap: wrap;
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.rowCheckOut {
+    display: -ms-flexbox; /* IE10 */
+    display: flex;
+    -ms-flex-wrap: wrap; /* IE10 */
+    flex-wrap: wrap;
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.rowCheckOutSmall{
+    display: -ms-flexbox; /* IE10 */
+    display: flex;
+    -ms-flex-wrap: wrap; /* IE10 */
+    flex-wrap: wrap;
+    width: 80%;
+}
+
+.col-25 {
+    -ms-flex: 25%; /* IE10 */
+    flex: 25%;
+}
+
+.col-50 {
+    -ms-flex: 30%; /* IE10 */
+    flex: 30%;
+}
+
+.col-75 {
+    -ms-flex: 75%; /* IE10 */
+    flex: 75%;
+
+}
+
+.col-25,
+.col-75 {
+    padding: 0 14px;
+}
+
+.containerCheckOut {
+    background-color: #f8f6f2;
+    padding: 1.5rem;
+    /*padding: 5px 20px 15px 20px;*/
+    border: 1px solid lightgrey;
+    border-radius: 15px;
+}
+
+.inputCheckOut[type=text] {
+    width: 80%;
+    margin-bottom: 20px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.inputCheckOutSmall[type=text] {
+    width: 60%;
+    margin-bottom: 20px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.labelCheckOut {
+    margin-bottom: 10px;
+    display: block;
+    margin-right: -2rem;
+}
+
+.icon-container {
+    margin-bottom: 20px;
+    padding: 7px 0;
+    font-size: 24px;
+}
+
+.btnCheckOut {
+    background-color: rgba(227, 216, 154, 0.93);
+    color: black;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    width: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 17px;
+
+}
+
+.btnCheckOut:hover {
+    background-color: rgba(241, 230, 175, 0.93);
+}
+
+span.price {
+    float: right;
+    color: grey;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (and change the direction - make the "cart" column go on top) */
+@media (max-width: 800px) {
+    .row {
+        flex-direction: column-reverse;
+    }
+    .col-25 {
+        margin-bottom: 20px;
+    }
 }
