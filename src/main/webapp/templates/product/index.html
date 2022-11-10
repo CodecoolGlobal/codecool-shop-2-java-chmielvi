@@ -38,6 +38,13 @@
 <div id="category_buttons">
     <th:block th:each="category,iterStat : ${categories}">
     <button th:id="${category.getId()}" th:text="${category.getName()}"></button>
+    </th:block>
+        <select id="suppliers">
+            <option></option>
+            <th:block th:each="supplier,iterStat : ${suppliers}">
+            <option th:value="${supplier.getId()}" th:id="${supplier.getId()}" th:text="${supplier.getName()}"></option>
+            </th:block>
+        </select>
 </div>
 
 <div class="container">

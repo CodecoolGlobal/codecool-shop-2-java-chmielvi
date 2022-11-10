@@ -2,7 +2,6 @@ package com.codecool.shop.controller.api;
 
 import com.codecool.shop.dao.jdbc.DatabaseManager;
 import com.codecool.shop.model.Product;
-import com.codecool.shop.model.ProductCategory;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,18 +11,20 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-//"api/category?category_id=1/products"
+//`/api/supplier/products?supplier_id=${supplierId}`
 
-@WebServlet(name = "categoryProductsApi", urlPatterns = {"/api/category/products"}, loadOnStartup = 3)
+@WebServlet(name = "supplierProductsApi", urlPatterns = {"/api/supplier/products"}, loadOnStartup = 4)
 
-public class ApiCategoryProducts extends HttpServlet implements JSONConverter {
+public class ApiSupplierProducts extends HttpServlet implements JSONConverter {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String categoryId = request.getParameter("category_id");
-        System.out.println(categoryId);
+        System.out.println("vici");
+        String supplierId = request.getParameter("supplier_id");
+        System.out.println("supplierid  "+supplierId);
         DatabaseManager databaseManager = DatabaseManager.getInstance();
-        List<Product> products = databaseManager.getProductsByCategory(Integer.parseInt(categoryId));
+        List<Product> products = databaseManager.getProductsBySupplier(Integer.parseInt(supplierId));
+        System.out.println(products);
         PrintWriter out = response.getWriter();
         String json = gson.toJson(products);
         System.out.println(json);
@@ -31,7 +32,5 @@ public class ApiCategoryProducts extends HttpServlet implements JSONConverter {
         response.setCharacterEncoding("UTF-8");
         out.print(json);
         out.flush();
-
-
     }
 }
