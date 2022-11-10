@@ -9,8 +9,7 @@ import javax.smartcardio.Card;
 import javax.sql.DataSource;
 import java.math.BigDecimal;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class CartDaoJdbc implements CartDao, DaoJdbc {
 
@@ -72,17 +71,20 @@ public class CartDaoJdbc implements CartDao, DaoJdbc {
     }
 
 
-    public List<Product> getAllProductsFromCart(int userId) {
+    public Map<Product, Integer> getAllProductsFromCart(int userId) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "SELECT products.*" +
-                    "FROM products \n" +
+            String sql = "SELECT products.*,\n" +
+                    "        cart.product_id as list\n" +
+                    "FROM products\n" +
                     "JOIN cart on products.id = ANY(cart.product_id)\n" +
-                    "WHERE cart.user_id = ?";
+                    "WHERE cart.user_id = ?\n" +
+                    "group by id, name, description, price, currency, image, product_category_id, supplier_id, cart.product_id";
             PreparedStatement prepareStatement = conn.prepareStatement(sql);
             prepareStatement.setInt(1, userId);
             ResultSet resultSet = prepareStatement.executeQuery();
 
-            List<Product> result = new ArrayList<>();
+            Map<Product, Integer> result = new HashMap<>();
+
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
@@ -92,9 +94,15 @@ public class CartDaoJdbc implements CartDao, DaoJdbc {
                 String image = resultSet.getString("image");
                 int category = resultSet.getInt("product_category_id");
                 int supplier = resultSet.getInt("supplier_id");
+                Integer[] listOfIds = (Integer[]) resultSet.getArray("list").getArray();
+
                 Product product = new Product(name, price, currency, description, image, ProductCategoryDaoJdbc.getInstance().find(category), SupplierDaoJdbc.getInstance().find(supplier));
                 product.setId(id);
-                result.add(product);
+
+                int occurrences = Collections.frequency(List.of(listOfIds), id);
+                result.put(product, occurrences);
+
+                System.out.println("RESULT " + result);
             }
             return result;
         } catch (SQLException exception) {
@@ -102,8 +110,15 @@ public class CartDaoJdbc implements CartDao, DaoJdbc {
         }
     }
 
+
+    public List<Product> updateCart() {
+        return null;
+    }
+
     @Override
     public void init(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 }
+
+

@@ -5,6 +5,7 @@ import com.codecool.shop.config.ConnectionProperties;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import com.codecool.shop.dao.jdbc.*;
 import com.codecool.shop.model.*;
@@ -101,7 +102,7 @@ public class DatabaseManager {
         cartDao.addProductToCart(userId, productId);
     }
 
-    public List<Product> getAllProductsFromCart(int userId) {
+    public Map<Product, Integer> getAllProductsFromCart(int userId) {
         return cartDao.getAllProductsFromCart(userId);
     }
 }

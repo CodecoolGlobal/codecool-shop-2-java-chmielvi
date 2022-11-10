@@ -16,8 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.lang.reflect.Type;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(urlPatterns = {"/shopping-cart"})
 public class CartController extends HttpServlet {
@@ -31,7 +33,13 @@ public class CartController extends HttpServlet {
         String userName = (session != null) ? (String) session.getAttribute("username") : null;
         if (userName != null) {
             User user = databaseManager.getUserObject(userName);
-            context.setVariable("shoppingList", databaseManager.getAllProductsFromCart(user.getId()));
+            System.out.println("CART PRODUCTS");
+            //List<Product> products = databaseManager.getAllProductsFromCart(user.getId());
+            //System.out.println(databaseManager.getAllProductsFromCart(user.getId()));
+            Map<Product, Integer> productAndAmounts = databaseManager.getAllProductsFromCart(user.getId());
+            System.out.println("AMOUNTS " + productAndAmounts);
+            context.setVariable("shoppingList", productAndAmounts);
+
         }
 
         engine.process("shopping-cart.html", context, resp.getWriter());
