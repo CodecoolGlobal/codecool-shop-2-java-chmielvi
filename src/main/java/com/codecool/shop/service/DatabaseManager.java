@@ -6,14 +6,8 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.codecool.shop.dao.jdbc.ProductCategoryDaoJdbc;
-import com.codecool.shop.dao.jdbc.ProductDaoJdbc;
-import com.codecool.shop.dao.jdbc.SupplierDaoJdbc;
-import com.codecool.shop.dao.jdbc.UserDaoJdbc;
-import com.codecool.shop.model.Product;
-import com.codecool.shop.model.ProductCategory;
-import com.codecool.shop.model.Supplier;
-import com.codecool.shop.model.User;
+import com.codecool.shop.dao.jdbc.*;
+import com.codecool.shop.model.*;
 import org.postgresql.ds.PGSimpleDataSource;
 
 public class DatabaseManager {
@@ -22,6 +16,8 @@ public class DatabaseManager {
     private ProductDaoJdbc productDao;
     private SupplierDaoJdbc supplierDao;
     private UserDaoJdbc userDao;
+
+    private CartDaoJdbc cartDao;
 
     public DatabaseManager(){}
 
@@ -35,6 +31,8 @@ public class DatabaseManager {
         supplierDao.init(dataSource);
         userDao = UserDaoJdbc.getInstance();
         userDao.init(dataSource);
+        cartDao = CartDaoJdbc.getInstance();
+        cartDao.init(dataSource);
     }
 
     public List<Product> getAllProducts() {
@@ -59,6 +57,11 @@ public class DatabaseManager {
 
     public void registerUser(User user){
         userDao.add(user);
+    }
+
+
+    public User getUserObject(String username) {
+        return userDao.getUserObject(username);
     }
     public Boolean getUser(String user) {
         return userDao.findBy(user);
@@ -90,4 +93,15 @@ public class DatabaseManager {
         return instance;
     }
 
+    public void addCart(Cart cart) {
+        cartDao.createCart(cart);
+    }
+
+    public void addProductToCart(int userId, int productId) {
+        cartDao.addProductToCart(userId, productId);
+    }
+
+    public List<Product> getAllProductsFromCart(int userId) {
+        return cartDao.getAllProductsFromCart(userId);
+    }
 }

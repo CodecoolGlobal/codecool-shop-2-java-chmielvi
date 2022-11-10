@@ -26,36 +26,14 @@ public class ProductController extends HttpServlet {
         DatabaseManager databaseManager = DatabaseManager.getInstance();
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        System.out.println("user namemmmm;;   "+userName);
         context.setVariable("username", userName);
         context.setVariable("categories", databaseManager.getAllCategories());
         context.setVariable("products", databaseManager.getAllProducts());
         context.setVariable("suppliers", databaseManager.getAllSuppliers());
         engine.process("product/index.html", context, resp.getWriter());
 
+        System.out.println("CHECKING OBJECT " + databaseManager.getUserObject(userName));
+
     }
 
 }
-
-
-//    @Override
-//    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
-//        HttpServletRequest request = (HttpServletRequest) req;
-//        HttpServletResponse response = (HttpServletResponse) res;
-//        HttpSession session = request.getSession(false);
-//        User user = (session != null) ? (User) session.getAttribute("user") : null;
-//        String loginURL = request.getContextPath() + "/login";
-//
-//        if (user == null && !request.getRequestURI().equals(loginURL)) {
-//            response.sendRedirect(loginURL);
-//        } else {
-//            chain.doFilter(request, response);
-//        }
-//    }
-
-
-//    @Override
-//    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        request.getSession().invalidate();
-//        response.sendRedirect(request.getContextPath() + "/login");
-//    }

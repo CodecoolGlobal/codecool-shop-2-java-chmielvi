@@ -60,6 +60,7 @@ public class UserDaoJdbc implements DaoJdbc, UserDao {
         }
     }
 
+
     public Boolean findBy(String username, String password) {
         try (Connection conn = dataSource.getConnection()) {
             String sql = "SELECT * FROM user_table WHERE password = ? AND username = ?";
@@ -76,6 +77,50 @@ public class UserDaoJdbc implements DaoJdbc, UserDao {
             throw new RuntimeException(exception);
         }
     }
+
+    public User getUserObject(String username) {
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT * FROM user_table WHERE username = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, username);
+            ResultSet resultSet = statement.executeQuery();
+            if (!resultSet.next()) {
+                return null;
+            }
+            int id = resultSet.getInt("id");
+            String password = resultSet.getString("password");
+            User user = new User(username, password);
+            user.setId(id);
+            return user;
+
+        } catch (SQLException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+
+
+
+    /*try (Connection conn = dataSource.getConnection()) {
+        String sql = "SELECT player_name, health, attack_strength, x, y FROM player WHERE id = ?";
+        PreparedStatement statement = conn.prepareStatement(sql);
+        statement.setInt(1, id);
+        ResultSet resultSet = statement.executeQuery();
+        if (!resultSet.next()) {
+            return null;
+        }
+        String playerName = resultSet.getString(1);
+        int health = resultSet.getInt(2);
+        int attackStrength = resultSet.getInt(3);
+        int x = resultSet.getInt(4);
+        int y = resultSet.getInt(5);
+
+
+        PlayerModel player = new PlayerModel(playerName, health, attackStrength, x, y);
+        player.setId(id);
+        return player;
+    } catch (SQLException exception) {
+        throw new RuntimeException(exception);
+    }*/
 
 
     @Override

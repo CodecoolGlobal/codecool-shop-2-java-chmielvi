@@ -74,6 +74,7 @@ public class Product extends BaseModel {
     @Override
     public String toString() {
         return "Product{" +
+                "name=" + name +
                 "defaultPrice=" + defaultPrice +
                 ", defaultCurrency=" + defaultCurrency +
                 ", productCategory=" + productCategory +

@@ -14,25 +14,23 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/shopping-cart"})
-public class CartController extends HttpServlet {
+@WebServlet(urlPatterns = {"/add-to-cart"})
+public class AddToCartController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        String productId = req.getParameter("product_id");
         DatabaseManager databaseManager = DatabaseManager.getInstance();
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-        WebContext context = new WebContext(req, resp, req.getServletContext());
         HttpSession session = req.getSession(false);
         String userName = (session != null) ? (String) session.getAttribute("username") : null;
         if (userName != null) {
             User user = databaseManager.getUserObject(userName);
-            System.out.println("CART PRODUCTS");
-            System.out.println(databaseManager.getAllProductsFromCart(user.getId()));
+            databaseManager.addProductToCart(user.getId(), Integer.parseInt(productId));
+            resp.sendRedirect("/");
 
         }
 
-        engine.process("shopping-cart.html", context, resp.getWriter());
-    }
+
+        }
 
 
 }

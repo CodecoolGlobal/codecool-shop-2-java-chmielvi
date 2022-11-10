@@ -1,6 +1,7 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.User;
 import com.codecool.shop.service.DatabaseManager;
 import org.thymeleaf.TemplateEngine;
@@ -30,13 +31,14 @@ public class RegisterController extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         DatabaseManager databaseManager = DatabaseManager.getInstance();
-        databaseManager.registerUser(new User(username,password));
+        User user = new User(username,password);
+        databaseManager.registerUser(user);
+        databaseManager.addCart(new Cart(user));
         HttpSession session=request.getSession();
         session.setAttribute("username",username);
         System.out.println(username + "  " + password);
         response.sendRedirect("/");
 
-//            doGet(request, response);
     }
 
 

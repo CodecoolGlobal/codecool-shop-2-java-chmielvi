@@ -33,7 +33,7 @@ public class User extends BaseModel {
     @Override
     public String toString() {
         return "User{" +
-                "username='" + username + '\'' +
+                "username='" + name + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }

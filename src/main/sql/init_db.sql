@@ -36,3 +36,16 @@ CREATE TABLE public.user_table (
                                  username text NOT NULL,
                                  password text NOT NULL
 );
+
+DROP TABLE IF EXISTS public.user_table;
+CREATE TABLE public.user_table (
+                                   id serial NOT NULL PRIMARY KEY,
+                                   username text NOT NULL,
+                                   password text NOT NULL
+);
+
+DROP TABLE IF EXISTS public.cart;
+CREATE TABLE public.cart (
+                                   user_id int NOT NULL,
+                                   product_id int[]
+);

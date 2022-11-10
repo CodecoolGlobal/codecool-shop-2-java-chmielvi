@@ -73,7 +73,7 @@
                     </div>
                     <div class="card-text">
                         <th:block th:if="${username != null}">
-                            <a class="btn btn-success" href="#">Add to cart</a>
+                            <a class="btn btn-success" th:href="@{/add-to-cart(product_id=${product.getId()})}">Add to cart</a>
                         </th:block>
                     </div>
                 </div>
