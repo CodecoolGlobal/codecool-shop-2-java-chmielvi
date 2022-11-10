@@ -14,9 +14,9 @@
  <nav>
     <ul class="ulNav">
       <li><a th:href="${'/index.html/'}">CodeCool Reads</a></li>
-      <li><a class="login" th:href="${'/login.html/'}" th:attr="data-topic=@{login}">Login</a></li>
-      <li><a class="register" th:href="${'/register.html/'}" th:attr="data-topic=@{register}"> Register</a></li>
-      <li class="rightShoppingCart" style="float:right;" ><a class="shoppingCart" th:href="${'/shoppingCart.html/'}" th:attr="data-topic=@{register}" >Shopping Cart <img src='/static/img/shopping-cart-icon.png'  th:attr="src='/static/img/shopping-cart-icon.png'" alt="cart" /></a></li>
+      <li><a class="login" th:href="@{/login}" th:attr="data-topic=@{login}">Login</a></li>
+      <li><a th:href="@{/register}" class="register"  th:attr="data-topic=@{register}"> Register</a></li>
+      <li class="rightShoppingCart" style="float:right;" ><a  href="/shopping-cart" class="shoppingCart" th:attr="data-topic=@{shopping-cart}" >Shopping Cart <img src='/static/img/shopping-cart-icon.png'  th:attr="src='/static/img/shopping-cart-icon.png'" alt="cart" /></a></li>
 
     </ul>
  </nav>

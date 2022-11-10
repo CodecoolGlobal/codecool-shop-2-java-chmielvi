@@ -3,8 +3,6 @@ package com.codecool.shop.dao.jdbc;
 import com.codecool.shop.dao.DaoJdbc;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.model.Product;
-import com.codecool.shop.model.ProductCategory;
-import com.codecool.shop.model.Supplier;
 
 import javax.sql.DataSource;
 import java.math.BigDecimal;
@@ -20,7 +18,8 @@ public class ProductDaoJdbc implements ProductDao, DaoJdbc {
     private static ProductDaoJdbc instance = null;
     private DataSource dataSource;
 
-    private ProductDaoJdbc() {}
+    private ProductDaoJdbc() {
+    }
 
     public static ProductDaoJdbc getInstance() {
         if (instance == null) {
@@ -29,7 +28,7 @@ public class ProductDaoJdbc implements ProductDao, DaoJdbc {
         return instance;
     }
 
-    public void init(DataSource dataSource){
+    public void init(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
@@ -53,7 +52,6 @@ public class ProductDaoJdbc implements ProductDao, DaoJdbc {
         try (Connection conn = dataSource.getConnection()) {
             String sql = "SELECT * FROM products";
             ResultSet resultSet = conn.createStatement().executeQuery(sql);
-
             List<Product> result = new ArrayList<>();
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
@@ -64,8 +62,7 @@ public class ProductDaoJdbc implements ProductDao, DaoJdbc {
                 String image = resultSet.getString("image");
                 int category = resultSet.getInt("product_category_id");
                 int supplier = resultSet.getInt("supplier_id");
-
-                Product product = new Product(name, price, currency, description, image, ProductCategoryDaoJdbc.getInstance().find(category), SupplierDaoJdbc.getInstance().find(supplier) );
+                Product product = new Product(name, price, currency, description, image, ProductCategoryDaoJdbc.getInstance().find(category), SupplierDaoJdbc.getInstance().find(supplier));
                 product.setId(id);
                 result.add(product);
             }
@@ -94,7 +91,7 @@ public class ProductDaoJdbc implements ProductDao, DaoJdbc {
                 int category = resultSet.getInt("product_category_id");
                 int supplierId = resultSet.getInt("supplier_id");
 
-                Product product = new Product(name, price, currency, description, image, ProductCategoryDaoJdbc.getInstance().find(category), SupplierDaoJdbc.getInstance().find(supplierId) );
+                Product product = new Product(name, price, currency, description, image, ProductCategoryDaoJdbc.getInstance().find(category), SupplierDaoJdbc.getInstance().find(supplierId));
                 product.setId(productId);
                 result.add(product);
             }
@@ -105,10 +102,8 @@ public class ProductDaoJdbc implements ProductDao, DaoJdbc {
     }
 
 
-
     @Override
     public List<Product> getByCategory(int id) {
-
         try (Connection conn = dataSource.getConnection()) {
             String sql = "SELECT * FROM products WHERE product_category_id = ?";
             PreparedStatement prepareStatement = conn.prepareStatement(sql);
@@ -125,7 +120,7 @@ public class ProductDaoJdbc implements ProductDao, DaoJdbc {
                 int category = resultSet.getInt("product_category_id");
                 int supplier = resultSet.getInt("supplier_id");
 
-                Product product = new Product(name, price, currency, description, image, ProductCategoryDaoJdbc.getInstance().find(category), SupplierDaoJdbc.getInstance().find(supplier) );
+                Product product = new Product(name, price, currency, description, image, ProductCategoryDaoJdbc.getInstance().find(category), SupplierDaoJdbc.getInstance().find(supplier));
                 product.setId(productId);
                 result.add(product);
             }

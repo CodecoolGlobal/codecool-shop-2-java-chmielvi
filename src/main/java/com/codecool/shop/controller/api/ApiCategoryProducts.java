@@ -1,8 +1,7 @@
 package com.codecool.shop.controller.api;
 
-import com.codecool.shop.dao.jdbc.DatabaseManager;
 import com.codecool.shop.model.Product;
-import com.codecool.shop.model.ProductCategory;
+import com.codecool.shop.service.DatabaseManager;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,7 +11,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-//"api/category?category_id=1/products"
 
 @WebServlet(name = "categoryProductsApi", urlPatterns = {"/api/category/products"}, loadOnStartup = 3)
 

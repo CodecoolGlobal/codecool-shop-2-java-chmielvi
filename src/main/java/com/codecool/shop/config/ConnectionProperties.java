@@ -2,16 +2,17 @@ package com.codecool.shop.config;
 
 import com.google.common.base.Splitter;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Map;
 import java.util.Scanner;
 
 public class ConnectionProperties {
 
     private static ConnectionProperties instance;
-    private String filename = "/Users/victoria/codecool-shop-1-java-chmielvi/src/main/resources/connection.properties";
+    private String filename = "/home/dea/Projects/Java/codecool-shop-1-java-chmielvi/src/main/resources/connection.properties";
 
-    //    Map<String, String> connectionProperties;
+
     private String url;
     private String database;
     private String user;
@@ -28,8 +29,8 @@ public class ConnectionProperties {
         dao = connectionProperties.get("dao");
     }
 
-    public static ConnectionProperties getInstance(){
-        if(instance == null) {
+    public static ConnectionProperties getInstance() {
+        if (instance == null) {
             instance = new ConnectionProperties();
         }
         return instance;
