@@ -41,14 +41,14 @@
             <div class="shape"></div>
             <div class="shape"></div>
         </div>
-        <form class="loginRegisterForm">
+        <form class="loginRegisterForm" action="/register" method="post">
             <h3>Register</h3>
 
             <label class="loginRegisterLabel" for="username">Username</label>
-            <input class="loginRegisterInput" type="text" placeholder="Username" id="username">
+            <input class="loginRegisterInput" type="text" placeholder="Username" name="username" id="username">
 
             <label  class="loginRegisterLabel" for="password">Password</label>
-            <input  class="loginRegisterInput" type="password" placeholder="Password" id="password">
+            <input  class="loginRegisterInput" type="password" placeholder="Password" name="password" id="password">
 
             <button class="loginRegisterButton">Register</button>
         </form>
