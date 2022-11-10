@@ -30,3 +30,9 @@ CREATE TABLE public.supplier (
 );
 
 
+DROP TABLE IF EXISTS public.user_table;
+CREATE TABLE public.user_table (
+                                 id serial NOT NULL PRIMARY KEY,
+                                 username text NOT NULL,
+                                 password text NOT NULL
+);
