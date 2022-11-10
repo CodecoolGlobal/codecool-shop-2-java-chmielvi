@@ -49,7 +49,7 @@
                     <!-- a page load so disabled. -->
                     <httpConnector>
                         <!--host>localhost</host-->
-                        <port>9999</port>
+                        <port>8080</port>
                     </httpConnector>
                      <reload>automatic</reload>
                      <scanIntervalSeconds>1</scanIntervalSeconds>
