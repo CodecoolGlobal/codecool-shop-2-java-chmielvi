@@ -11,6 +11,9 @@ main()
 function addEventListeners() {
     const categories = document.getElementById("category_buttons").children;
     for(let i = 0; i < categories.length; i ++){
+        if(categories[i].id === "suppliers"){
+            continue
+        }
         categories[i].addEventListener("click", loadProductsByCategory)
     }
     const suppliers = document.getElementById("suppliers")
@@ -21,10 +24,8 @@ function addEventListeners() {
 async function loadProductsBySupplier(event){
     const suppliers = document.getElementById("suppliers")
     const supplierId = suppliers.value
-    if(supplierId !== undefined){
-        const products = await getProducts(`/api/supplier/products?supplier_id=${supplierId}`)
-        drawProducts(products)
-    }
+    const products = await getProducts(`/api/supplier/products?supplier_id=${supplierId}`)
+    drawProducts(products)
 }
 
 

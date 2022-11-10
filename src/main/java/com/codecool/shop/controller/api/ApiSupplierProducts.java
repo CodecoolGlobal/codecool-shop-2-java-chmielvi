@@ -1,7 +1,7 @@
 package com.codecool.shop.controller.api;
 
-import com.codecool.shop.dao.jdbc.DatabaseManager;
 import com.codecool.shop.model.Product;
+import com.codecool.shop.service.DatabaseManager;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
