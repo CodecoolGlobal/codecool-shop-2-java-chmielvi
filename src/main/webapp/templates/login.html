@@ -42,14 +42,16 @@
 
 <div class="container">
     <div class="card">
-        <form method='POST'>
-            <label for='username'></label><input type='text' id='username' name='username'>
+        <form action="/login" method='POST'>
+            <label for='username'></label>
+            <input type='text' id='username' name='username'>
             <input type='password' id='password' name='password'>
             <button type='submit'>SUBMIT</button>
         </form>
     </div>
 
 </div>
+<div th:if="${message != null}" th:text="${message}"></div>
 <script type="text/javascript" th:src="@{/static/js/main.js}"></script>
 <div th:replace="footer.html :: copy"></div>
 

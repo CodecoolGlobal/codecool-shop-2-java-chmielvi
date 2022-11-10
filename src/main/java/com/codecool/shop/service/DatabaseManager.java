@@ -57,7 +57,9 @@ public class DatabaseManager {
         return productDao.getBySupplier(id);
     }
 
-
+    public void registerUser(User user){
+        userDao.add(user);
+    }
     public Boolean getUser(String user) {
         return userDao.findBy(user);
     }
