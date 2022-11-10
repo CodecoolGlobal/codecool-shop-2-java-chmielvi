@@ -1,8 +1,11 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.model.Product;
 import com.codecool.shop.model.User;
 import com.codecool.shop.service.DatabaseManager;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -13,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.List;
 
 @WebServlet(urlPatterns = {"/shopping-cart"})
 public class CartController extends HttpServlet {
@@ -26,9 +31,7 @@ public class CartController extends HttpServlet {
         String userName = (session != null) ? (String) session.getAttribute("username") : null;
         if (userName != null) {
             User user = databaseManager.getUserObject(userName);
-            System.out.println("CART PRODUCTS");
-            System.out.println(databaseManager.getAllProductsFromCart(user.getId()));
-
+            context.setVariable("shoppingList", databaseManager.getAllProductsFromCart(user.getId()));
         }
 
         engine.process("shopping-cart.html", context, resp.getWriter());
