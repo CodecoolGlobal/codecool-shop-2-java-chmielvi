@@ -25,7 +25,7 @@
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <!-- End of Bootstrap components -->
 
-    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" th:href="@{/static/css/custom.css}" />
 </head>
 
 <body>
@@ -38,12 +38,18 @@
     <th:block th:each="category,iterStat : ${categories}">
     <button th:id="${category.getId()}" th:text="${category.getName()}"></button>
     </th:block>
-        <select id="suppliers">
-            <option></option>
+
+
+    <div class="select-dropdown">
+        <select id="suppliers" >
+          <!--  <option></option>-->
+          <!--  <option th:field="${supplier}">Book Publisher</option>-->
             <th:block th:each="supplier,iterStat : ${suppliers}">
             <option th:value="${supplier.getId()}" th:id="${supplier.getId()}" th:text="${supplier.getName()}"></option>
             </th:block>
         </select>
+    </div>
+    <hr>
 </div>
 
 
