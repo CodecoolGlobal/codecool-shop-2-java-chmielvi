@@ -36,9 +36,11 @@ public class LoginController extends HttpServlet {
                     HttpSession session=request.getSession();
                     session.setAttribute("username",username);
                     response.sendRedirect("/");
+                    return;
                 }
                 String message = "wrong password, try again!";
                 response.sendRedirect("/login?message=" + message);
+
 
             }
             String message = "wrong username, try again!";

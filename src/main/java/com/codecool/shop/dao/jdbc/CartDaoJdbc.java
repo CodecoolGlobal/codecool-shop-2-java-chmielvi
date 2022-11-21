@@ -5,7 +5,7 @@ import com.codecool.shop.dao.DaoJdbc;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
 
-import javax.smartcardio.Card;
+
 import javax.sql.DataSource;
 import java.math.BigDecimal;
 import java.sql.*;
@@ -82,9 +82,7 @@ public class CartDaoJdbc implements CartDao, DaoJdbc {
             PreparedStatement prepareStatement = conn.prepareStatement(sql);
             prepareStatement.setInt(1, userId);
             ResultSet resultSet = prepareStatement.executeQuery();
-
             Map<Product, Integer> result = new HashMap<>();
-
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");

@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class ConnectionProperties {
 
     private static ConnectionProperties instance;
-    private String filename = "/home/dea/Projects/Java/codecool-shop-1-java-chmielvi/src/main/resources/connection.properties";
+    private String filename = "/home/doriana/code/JAVA/Week_5/codecool-shop-1-java-chmielvi/src/main/resources/connection.properties";
 
 
     private String url;
