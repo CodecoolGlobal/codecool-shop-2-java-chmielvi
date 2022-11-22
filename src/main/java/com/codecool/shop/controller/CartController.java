@@ -4,8 +4,6 @@ import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.User;
 import com.codecool.shop.service.DatabaseManager;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -16,10 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 @WebServlet(urlPatterns = {"/shopping-cart"})
 public class CartController extends HttpServlet {
@@ -33,15 +29,22 @@ public class CartController extends HttpServlet {
         if (userName != null) {
             User user = databaseManager.getUserObject(userName);
             Map<Product, Integer> productAndAmounts = databaseManager.getAllProductsFromCart(user.getId());
-            context.setVariable("shoppingList", productAndAmounts);
+            Map<Map.Entry, Double> allProductInfo = new HashMap<>();
 
+            AtomicReference<Double> totalSum = new AtomicReference<>(0.0);
+            productAndAmounts.forEach((key, value) ->
+                    productAndAmounts.entrySet().forEach((newValue) ->
+                    allProductInfo.put(newValue, newValue.getKey().getDefaultPrice().doubleValue() * newValue.getValue())
+                    ));
 
-                    /* productAndAmounts.forEach((key, value) ->
-                    System.out.println(key.getDefaultPrice().intValue() * value));*/
+            productAndAmounts.forEach((key, value) ->
+                    totalSum.updateAndGet(v -> v + key.getDefaultPrice().doubleValue() * value));
 
+            totalSum.updateAndGet(v -> (double) Math.round(v));
 
-            System.out.println("AMOUNTS " + productAndAmounts);
-            context.setVariable("shoppingList", productAndAmounts);
+            context.setVariable("allProductInfo", allProductInfo);
+            context.setVariable("totalSum", totalSum);
+
 
         }
         engine.process("shopping-cart.html", context, resp.getWriter());
