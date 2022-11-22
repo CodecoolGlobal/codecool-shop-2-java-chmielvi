@@ -34,6 +34,15 @@ public class CartController extends HttpServlet {
             User user = databaseManager.getUserObject(userName);
             Map<Product, Integer> productAndAmounts = databaseManager.getAllProductsFromCart(user.getId());
             context.setVariable("shoppingList", productAndAmounts);
+
+
+                    /* productAndAmounts.forEach((key, value) ->
+                    System.out.println(key.getDefaultPrice().intValue() * value));*/
+
+
+            System.out.println("AMOUNTS " + productAndAmounts);
+            context.setVariable("shoppingList", productAndAmounts);
+
         }
         engine.process("shopping-cart.html", context, resp.getWriter());
     }
