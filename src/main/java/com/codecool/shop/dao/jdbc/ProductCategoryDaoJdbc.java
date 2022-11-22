@@ -3,6 +3,8 @@ package com.codecool.shop.dao.jdbc;
 import com.codecool.shop.dao.DaoJdbc;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.model.ProductCategory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -10,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductCategoryDaoJdbc implements ProductCategoryDao, DaoJdbc {
+    private static final Logger logger = LoggerFactory.getLogger(ProductCategoryDaoJdbc.class);
+
 
     private static ProductCategoryDaoJdbc instance = null;
 
@@ -42,6 +46,7 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao, DaoJdbc {
             resultSet.next();
             category.setId(resultSet.getInt(1));
         } catch (SQLException e) {
+            logger.error("Connecting to database failed!");
             throw new RuntimeException(e);
         }
 
@@ -76,6 +81,7 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao, DaoJdbc {
             }
             return result;
         } catch (SQLException exception) {
+            logger.error("Connecting to database failed!");
             throw new RuntimeException(exception);
         }
 

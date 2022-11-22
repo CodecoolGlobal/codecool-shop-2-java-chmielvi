@@ -1,9 +1,12 @@
 package com.codecool.shop.dao.jdbc;
 
+import com.codecool.shop.config.ConnectionProperties;
 import com.codecool.shop.dao.CartDao;
 import com.codecool.shop.dao.DaoJdbc;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 import javax.sql.DataSource;
@@ -12,6 +15,8 @@ import java.sql.*;
 import java.util.*;
 
 public class CartDaoJdbc implements CartDao, DaoJdbc {
+    private static final Logger logger = LoggerFactory.getLogger(CartDaoJdbc.class);
+
 
     private static CartDaoJdbc instance = null;
     private DataSource dataSource;
@@ -38,6 +43,7 @@ public class CartDaoJdbc implements CartDao, DaoJdbc {
             resultSet.next();
             cart.setId(resultSet.getInt(1));
         } catch (SQLException e) {
+            logger.error("Connecting to database from failed!");
             throw new RuntimeException(e);
         }
     }
@@ -50,6 +56,7 @@ public class CartDaoJdbc implements CartDao, DaoJdbc {
             statement.setInt(2, userId);
             statement.executeUpdate();
         } catch (SQLException exception) {
+            logger.error("Connecting to database failed!");
             throw new RuntimeException(exception);
         }
     }
@@ -104,6 +111,7 @@ public class CartDaoJdbc implements CartDao, DaoJdbc {
             }
             return result;
         } catch (SQLException exception) {
+            logger.error("Connecting to database failed!");
             throw new RuntimeException(exception);
         }
     }

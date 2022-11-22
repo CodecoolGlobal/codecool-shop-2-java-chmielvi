@@ -4,6 +4,8 @@ import com.codecool.shop.dao.DaoJdbc;
 import com.codecool.shop.dao.UserDao;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.math.BigDecimal;
@@ -13,6 +15,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class UserDaoJdbc implements DaoJdbc, UserDao {
+    private static final Logger logger = LoggerFactory.getLogger(UserDaoJdbc.class);
+
 
     private static UserDaoJdbc instance = null;
 
@@ -40,6 +44,7 @@ public class UserDaoJdbc implements DaoJdbc, UserDao {
             resultSet.next();
             user.setId(resultSet.getInt(1));
         } catch (SQLException e) {
+            logger.error("Connecting to database failed!");
             throw new RuntimeException(e);
         }
     }
@@ -56,27 +61,28 @@ public class UserDaoJdbc implements DaoJdbc, UserDao {
             return true;
 
         } catch (SQLException exception) {
+            logger.error("Connecting to database failed!");
             throw new RuntimeException(exception);
         }
     }
 
 
-    public Boolean findBy(String username, String password) {
-        try (Connection conn = dataSource.getConnection()) {
-            String sql = "SELECT * FROM user_table WHERE password = ? AND username = ?";
-            PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, password);
-            statement.setString(2, username);
-            ResultSet resultSet = statement.executeQuery();
-            if (!resultSet.next()) {
-                return false;
-            }
-            return true;
-
-        } catch (SQLException exception) {
-            throw new RuntimeException(exception);
-        }
-    }
+//    public Boolean findBy(String username, String password) {
+//        try (Connection conn = dataSource.getConnection()) {
+//            String sql = "SELECT * FROM user_table WHERE password = ? AND username = ?";
+//            PreparedStatement statement = conn.prepareStatement(sql);
+//            statement.setString(1, password);
+//            statement.setString(2, username);
+//            ResultSet resultSet = statement.executeQuery();
+//            if (!resultSet.next()) {
+//                return false;
+//            }
+//            return true;
+//
+//        } catch (SQLException exception) {
+//            throw new RuntimeException(exception);
+//        }
+//    }
 
     public User getUserObject(String username) {
         try (Connection conn = dataSource.getConnection()) {
@@ -94,6 +100,7 @@ public class UserDaoJdbc implements DaoJdbc, UserDao {
             return user;
 
         } catch (SQLException exception) {
+            logger.error("Connecting to database failed!");
             throw new RuntimeException(exception);
         }
     }
