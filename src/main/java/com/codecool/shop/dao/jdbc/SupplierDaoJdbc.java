@@ -3,6 +3,8 @@ package com.codecool.shop.dao.jdbc;
 import com.codecool.shop.dao.DaoJdbc;
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Supplier;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SupplierDaoJdbc implements SupplierDao, DaoJdbc {
+    private static final Logger logger = LoggerFactory.getLogger(SupplierDaoJdbc.class);
 
     private static SupplierDaoJdbc instance = null;
     private DataSource dataSource;
@@ -61,6 +64,7 @@ public class SupplierDaoJdbc implements SupplierDao, DaoJdbc {
             }
             return result;
         } catch (SQLException exception) {
+            logger.error("Connecting to database failed!");
             throw new RuntimeException(exception);
         }
     }
