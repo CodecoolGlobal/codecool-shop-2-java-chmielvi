@@ -8,17 +8,25 @@ function main(){
 }
 main()
 
+const categories = document.getElementById("category_buttons").children;
+const suppliers = document.getElementById("suppliers");
+const counterButtons = document.querySelectorAll(".btnCart")
+
+
 function addEventListeners() {
-    const categories = document.getElementById("category_buttons").children;
+
     for(let i = 0; i < categories.length; i ++){
         if(categories[i].id === "suppliers"){
             continue
         }
         categories[i].addEventListener("click", loadProductsByCategory)
     }
-    const suppliers = document.getElementById("suppliers")
+
     suppliers.addEventListener('change', loadProductsBySupplier)
+    counterButtons.forEach(() => addEventListeners("click" ))
 }
+
+
 
 
 async function loadProductsBySupplier(event){
