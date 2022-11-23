@@ -44,32 +44,36 @@
         </div>
 
 
-        <div th:each="item : ${shoppingList}">
-            <th:block th:each="mapEntry : ${item}">
-            <div class="Cart-Items ">
-                <div class="image-box">
+        <div th:each="item : ${allProductInfo}">
+            <div th:each="mapEntry : ${item.key}">
 
+
+                <div class="Cart-Items ">
+                    <div class="image-box">
 
                         <img class="imageCart" th:attr="src='/static/img/' + ${mapEntry.key.image} + '.png'" alt=""/>
 
-                </div>
-                <div class="about">
-                    <h1 class="titleShoppingCart" th:text="${mapEntry.key.name}">name</h1>
+                    </div>
+                    <div class="about">
+                        <h1 class="titleShoppingCart" th:text="${mapEntry.key.name}">name</h1>
+                        <h3 class="subtitleShoppingCart" th:text="${mapEntry.key.price}">Price</h3>
 
-                </div>
-                <div class="counter">
-                    <div th:attr="product=${mapEntry.key.id}" class="btnCart plus">+</div>
-                    <div th:attr="product=${mapEntry.key.id}" class="count" th:text="${mapEntry.value}"></div>
-                    <div th:attr="product=${mapEntry.key.id}" class="btnCart minus">-</div>
-                </div>
-                <div class="prices">
-                    <div class="amount" th:text="${mapEntry.key.price}">price>Price</div>
-                    <div class="save"><u>Save for later</u></div>
-                    <div class="remove"><u>Remove</u></div>
+                    </div>
+                    <div class="counter">
+                        <div th:attr="product=${mapEntry.key.id}" class="btnCart plus">+</div>
+
+                        <div th:attr="product=${mapEntry.key.id}" class="count" th:text="${mapEntry.value}"></div>
+                        <div th:attr="product=${mapEntry.key.id}" class="btnCart minus">-</div>
+                    </div>
+                    <div class="prices">
+                        <div class="amount" th:text="${item.value}">price>Price</div>
+                        <div class="save"><u>Save for later</u></div>
+                        <div class="remove"><u>Remove</u></div>
+                    </div>
                 </div>
             </div>
-            </th:block>
         </div>
+
         <hr>
         <div class="checkout">
             <div class="total">
@@ -77,7 +81,7 @@
                     <div class="Subtotal">Total</div>
                 </div>
                 <div>
-                    <div class="total-amount">$6.18</div>
+                    <div class="total-amount" th:text="${totalSum}"></div>
                     <button onclick="window.location.href='/checkout'" class="buttonShoppingCart">Checkout</button>
                 </div>
 

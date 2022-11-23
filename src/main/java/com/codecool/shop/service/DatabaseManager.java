@@ -10,8 +10,12 @@ import java.util.Map;
 import com.codecool.shop.dao.jdbc.*;
 import com.codecool.shop.model.*;
 import org.postgresql.ds.PGSimpleDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DatabaseManager {
+    private static final Logger logger = LoggerFactory.getLogger(DatabaseManager.class);
+
     private static DatabaseManager instance = null;
     private ProductCategoryDaoJdbc productCategoryDao;
     private ProductDaoJdbc productDao;
@@ -67,9 +71,9 @@ public class DatabaseManager {
     public Boolean getUser(String user) {
         return userDao.findBy(user);
     }
-    public Boolean getUser(String user, String password) {
-        return userDao.findBy(user, password);
-    }
+//    public Boolean getUser(String user, String password) {
+//        return userDao.findBy(user, password);
+//    }
 
     private DataSource connect() throws SQLException {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
@@ -80,10 +84,9 @@ public class DatabaseManager {
         dataSource.setDatabaseName(dbName);
         dataSource.setUser(user);
         dataSource.setPassword(password);
-
-        System.out.println("Trying to connect");
+        logger.info("Trying to connect to database");
         dataSource.getConnection().close();
-        System.out.println("Connection ok.");
+        logger.info("Database Connection ok!");
 
         return dataSource;
     }

@@ -1,9 +1,12 @@
 package com.codecool.shop.dao.jdbc;
 
+import com.codecool.shop.config.ConnectionProperties;
 import com.codecool.shop.dao.CartDao;
 import com.codecool.shop.dao.DaoJdbc;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.thymeleaf.util.ArrayUtils;
 
 
@@ -13,6 +16,8 @@ import java.sql.*;
 import java.util.*;
 
 public class CartDaoJdbc implements CartDao, DaoJdbc {
+    private static final Logger logger = LoggerFactory.getLogger(CartDaoJdbc.class);
+
 
     private static CartDaoJdbc instance = null;
     private DataSource dataSource;
@@ -39,6 +44,7 @@ public class CartDaoJdbc implements CartDao, DaoJdbc {
             resultSet.next();
             cart.setId(resultSet.getInt(1));
         } catch (SQLException e) {
+            logger.error("Connecting to database from failed!");
             throw new RuntimeException(e);
         }
     }
@@ -49,9 +55,9 @@ public class CartDaoJdbc implements CartDao, DaoJdbc {
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setInt(1, productId);
             statement.setInt(2, userId);
-
             statement.executeUpdate();
         } catch (SQLException exception) {
+            logger.error("Connecting to database failed!");
             throw new RuntimeException(exception);
         }
     }
@@ -75,20 +81,21 @@ public class CartDaoJdbc implements CartDao, DaoJdbc {
 
     public Map<Product, Integer> getAllProductsFromCart(int userId) {
         try (Connection conn = dataSource.getConnection()) {
-           /* String sql = """SELECT products.*,\n" +
+           /* String sql = "SELECT products.*,\n" +
                     "        cart.product_id as list\n" +
                     "FROM products\n" +
                     "JOIN cart on products.id = ANY(cart.product_id)\n" +
                     "WHERE cart.user_id = ?\n" +
-                    "group by id, name, description, price, currency, image, product_category_id, supplier_id, cart.product_id""";
-*/
-           String sql = """ 
+                    "group by id, name, description, price, currency, image, product_category_id, supplier_id, cart.product_id";
+           */
+            String sql = """ 
                             SELECT products.*,
                                    cart.product_id as list
                             FROM products
                             JOIN cart on products.id = ANY(cart.product_id)
                             WHERE cart.user_id = ?
                             group by id, name, description, price, currency, image, product_category_id, supplier_id, cart.product_id""";
+
             PreparedStatement prepareStatement = conn.prepareStatement(sql);
             prepareStatement.setInt(1, userId);
             ResultSet resultSet = prepareStatement.executeQuery();
@@ -114,6 +121,7 @@ public class CartDaoJdbc implements CartDao, DaoJdbc {
             }
             return result;
         } catch (SQLException exception) {
+            logger.error("Connecting to database failed!");
             throw new RuntimeException(exception);
         }
     }
@@ -175,30 +183,10 @@ public class CartDaoJdbc implements CartDao, DaoJdbc {
         }
     }
 
-
-    /*@Override
-    public void update(PlayerModel player) {
-        try (Connection conn = dataSource.getConnection()) {
-
-            String sql = "UPDATE player SET player_name = ?, health = ?, attack_strength = ?, x = ?, y = ? WHERE id = ?";
-            PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, player.getPlayerName());
-            statement.setInt(2, player.getHealth());
-            statement.setInt(3, player.getAttackStrength());
-            statement.setInt(4, player.getX());
-            statement.setInt(5, player.getY());
-            statement.executeUpdate();
-        } catch (SQLException exception) {
-            throw new RuntimeException(exception);
-        }
-    }*/
-
     @Override
     public void init(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 }
-
-
 
 

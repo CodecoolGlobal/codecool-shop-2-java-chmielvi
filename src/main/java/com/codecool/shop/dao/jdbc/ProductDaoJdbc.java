@@ -3,6 +3,8 @@ package com.codecool.shop.dao.jdbc;
 import com.codecool.shop.dao.DaoJdbc;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.model.Product;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.math.BigDecimal;
@@ -14,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDaoJdbc implements ProductDao, DaoJdbc {
+    private static final Logger logger = LoggerFactory.getLogger(ProductDaoJdbc.class);
+
 
     private static ProductDaoJdbc instance = null;
     private DataSource dataSource;
@@ -68,6 +72,7 @@ public class ProductDaoJdbc implements ProductDao, DaoJdbc {
             }
             return result;
         } catch (SQLException exception) {
+            logger.error("Connecting to database failed!");
             throw new RuntimeException(exception);
         }
 
@@ -97,6 +102,7 @@ public class ProductDaoJdbc implements ProductDao, DaoJdbc {
             }
             return result;
         } catch (SQLException exception) {
+            logger.error("Connecting to database failed!");
             throw new RuntimeException(exception);
         }
     }
@@ -126,6 +132,7 @@ public class ProductDaoJdbc implements ProductDao, DaoJdbc {
             }
             return result;
         } catch (SQLException exception) {
+            logger.error("Connecting to database failed!");
             throw new RuntimeException(exception);
         }
     }
