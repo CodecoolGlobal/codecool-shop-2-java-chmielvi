@@ -105,4 +105,8 @@ public class DatabaseManager {
     public Map<Product, Integer> getAllProductsFromCart(int userId) {
         return cartDao.getAllProductsFromCart(userId);
     }
+
+    public void removeProductFromCart(int productId, int userId) {
+        cartDao.updateCart(productId, userId);
+    }
 }

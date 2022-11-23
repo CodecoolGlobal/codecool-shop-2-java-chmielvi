@@ -4,6 +4,7 @@ import com.codecool.shop.dao.CartDao;
 import com.codecool.shop.dao.DaoJdbc;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
+import org.thymeleaf.util.ArrayUtils;
 
 
 import javax.sql.DataSource;
@@ -48,6 +49,7 @@ public class CartDaoJdbc implements CartDao, DaoJdbc {
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setInt(1, productId);
             statement.setInt(2, userId);
+
             statement.executeUpdate();
         } catch (SQLException exception) {
             throw new RuntimeException(exception);
@@ -56,7 +58,7 @@ public class CartDaoJdbc implements CartDao, DaoJdbc {
 
 
     @Override
-    public Cart find(int id) {
+    public Cart find(int userId) {
         return null;
     }
 
@@ -73,12 +75,20 @@ public class CartDaoJdbc implements CartDao, DaoJdbc {
 
     public Map<Product, Integer> getAllProductsFromCart(int userId) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "SELECT products.*,\n" +
+           /* String sql = """SELECT products.*,\n" +
                     "        cart.product_id as list\n" +
                     "FROM products\n" +
                     "JOIN cart on products.id = ANY(cart.product_id)\n" +
                     "WHERE cart.user_id = ?\n" +
-                    "group by id, name, description, price, currency, image, product_category_id, supplier_id, cart.product_id";
+                    "group by id, name, description, price, currency, image, product_category_id, supplier_id, cart.product_id""";
+*/
+           String sql = """ 
+                            SELECT products.*,
+                                   cart.product_id as list
+                            FROM products
+                            JOIN cart on products.id = ANY(cart.product_id)
+                            WHERE cart.user_id = ?
+                            group by id, name, description, price, currency, image, product_category_id, supplier_id, cart.product_id""";
             PreparedStatement prepareStatement = conn.prepareStatement(sql);
             prepareStatement.setInt(1, userId);
             ResultSet resultSet = prepareStatement.executeQuery();
@@ -109,14 +119,86 @@ public class CartDaoJdbc implements CartDao, DaoJdbc {
     }
 
 
-    public List<Product> updateCart() {
-        return null;
+    public Integer[] findArray(int userId) {
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT product_id FROM cart WHERE user_id = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+            if (!resultSet.next()) {
+                return null;
+            }
+
+            return (Integer[]) resultSet.getArray("product_id").getArray();
+        } catch (SQLException exception) {
+            throw new RuntimeException(exception);
+        }
     }
+
+
+    public Integer[] removeProduct(int userId, int productId) {
+        Integer[] productsId = findArray(userId);
+
+        List<Integer> productsIdAsList = new ArrayList<>(Arrays.asList(productsId));
+
+        for (Integer integer : productsId ) {
+            if (integer == productId) {
+                productsIdAsList.remove(integer);
+                break;
+            }
+        }
+
+        Integer[] arr = new Integer [productsIdAsList.size()];
+
+        productsIdAsList.toArray(arr);
+        return arr;
+    }
+
+    public List<Product> updateCart( int productId, int userId) {
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = """
+                        UPDATE cart SET product_id = ? WHERE user_id = ?
+                    """;
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            Integer[] productIdArray = removeProduct(userId, productId);
+
+            Array listOfProducts = conn.createArrayOf("int", productIdArray);
+            statement.setArray(1, listOfProducts);
+            statement.setInt(2, userId);
+
+            statement.executeUpdate();
+
+            return null;
+        } catch (SQLException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+
+
+    /*@Override
+    public void update(PlayerModel player) {
+        try (Connection conn = dataSource.getConnection()) {
+
+            String sql = "UPDATE player SET player_name = ?, health = ?, attack_strength = ?, x = ?, y = ? WHERE id = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, player.getPlayerName());
+            statement.setInt(2, player.getHealth());
+            statement.setInt(3, player.getAttackStrength());
+            statement.setInt(4, player.getX());
+            statement.setInt(5, player.getY());
+            statement.executeUpdate();
+        } catch (SQLException exception) {
+            throw new RuntimeException(exception);
+        }
+    }*/
 
     @Override
     public void init(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 }
+
+
 
 

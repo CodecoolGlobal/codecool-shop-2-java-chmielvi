@@ -29,7 +29,5 @@ public class ApiCategoryProducts extends HttpServlet implements JSONConverter {
         response.setCharacterEncoding("UTF-8");
         out.print(json);
         out.flush();
-
-
     }
 }

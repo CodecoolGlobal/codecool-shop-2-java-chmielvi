@@ -58,9 +58,9 @@
 
                 </div>
                 <div class="counter">
-                    <div class="btnCart">+</div>
-                    <div class="count" th:text="${mapEntry.value}"></div>
-                    <div class="btnCart">-</div>
+                    <div th:attr="product=${mapEntry.key.id}" class="btnCart plus">+</div>
+                    <div th:attr="product=${mapEntry.key.id}" class="count" th:text="${mapEntry.value}"></div>
+                    <div th:attr="product=${mapEntry.key.id}" class="btnCart minus">-</div>
                 </div>
                 <div class="prices">
                     <div class="amount" th:text="${mapEntry.key.price}">price>Price</div>
@@ -85,7 +85,7 @@
         </div>
     </div>
 
-    <script type="text/javascript" th:src="@{/static/js/main.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/cart.js}"></script>
     <div th:replace="footer.html :: copy"></div>
 </div>
 </body>

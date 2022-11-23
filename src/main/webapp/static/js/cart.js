@@ -4,15 +4,14 @@
 // let currentEndpoint = '/api/top?page=';
 
 function main(){
-    addEventListeners()
+    cartButtonsListener()
 }
 main()
 
-cartButtonsListener()
 
-function addEventListeners() {
+
+/*function addEventListeners() {
     const categories = document.getElementById("category_buttons").children;
-    console.log("CATEG ", categories)
     for (let i = 0; i < categories.length; i++) {
         if (categories[i].id === "suppliers") {
             continue
@@ -22,33 +21,71 @@ function addEventListeners() {
     const suppliers = document.getElementById("suppliers");
     suppliers.addEventListener('change', loadProductsBySupplier)
 
-}
+}*/
 
 function cartButtonsListener() {
     const counterButtons = document.querySelectorAll(".btnCart")
+    const counterValue = document.querySelectorAll(".count")
+    counterButtons.forEach(counterButton => counterButton.addEventListener('click', function consoleLog(event) {
+        console.log("IM WORKING", event)
+        if (counterButton.classList.contains("plus")) {
+            console.log("Class Plus")
+            increaseQuantity(event)
 
-    counterButtons.forEach(counterButton => counterButton.addEventListener('click', function consoleLog() {
-        console.log("IM WORKING")
+        } else {
+            console.log("Class Minus")
+            decreaseQuantity(event)
+        }
     }))
+}
+
+async function increaseQuantity(event) {
+
+    const productId = event.currentTarget.getAttribute("product")
+    console.log("PRODUCT ", productId)
+    await apiPost(`/api/edit-quantity?product=${productId}&changer=plus`)
+    let valueDiv = document.querySelector(`.count[product="${productId}"]`)
+    let value = parseInt(valueDiv.innerHTML)
+    console.log(value)
+    value++
+    valueDiv.innerHTML = (value).toString()
+    console.log(value)
+
+
+}
+
+
+async function decreaseQuantity(event) {
+    const productId = event.currentTarget.getAttribute("product")
+    console.log("PRODUCT ", productId)
+    await apiPost(`/api/edit-quantity?product=${productId}&changer=minus`)
+    let valueDiv = document.querySelector(`.count[product="${productId}"]`)
+    let value = parseInt(valueDiv.innerHTML)
+    console.log(value)
+    value--
+    valueDiv.innerHTML = (value).toString()
+    console.log(value)
 }
 
 
 
+/*
 async function loadProductsBySupplier(event){
     const suppliers = document.getElementById("suppliers")
     const supplierId = suppliers.value
     const products = await getProducts(`/api/supplier/products?supplier_id=${supplierId}`)
     drawProducts(products)
 }
+*/
 
 
-async function loadProductsByCategory(event){
+/*async function loadProductsByCategory(event){
     const categoryId = event.target.id
     const products = await getProducts(`/api/category/products?category_id=${categoryId}`)
     drawProducts(products)
-}
+}*/
 
-function drawProducts(ProductsList) {
+/*function drawProducts(ProductsList) {
     const productsContainer = document.querySelector("#products")
     productsContainer.innerHTML = ""
     ProductsList.forEach(product => {
@@ -81,7 +118,7 @@ function getCard(product) {
 
 async function getProducts(url) {
     return await apiGet( url);
-}
+}*/
 
 
 
@@ -92,4 +129,15 @@ async function apiGet(url) {
     if (response.ok) {
         return await response.json();
     }
+}
+
+async function apiPost(url) {
+    let response = await fetch(url, {
+
+        method: "POST",
+    });
+    console.log(response)
+    /*if (response.ok) {
+        return ;
+    }*/
 }
