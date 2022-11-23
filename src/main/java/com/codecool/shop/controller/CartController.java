@@ -34,7 +34,7 @@ public class CartController extends HttpServlet {
             AtomicReference<Double> totalSum = new AtomicReference<>(0.0);
             productAndAmounts.forEach((key, value) ->
                     productAndAmounts.entrySet().forEach((newValue) ->
-                    allProductInfo.put(newValue, newValue.getKey().getDefaultPrice().doubleValue() * newValue.getValue())
+                    allProductInfo.put(newValue, (double) Math.round(newValue.getKey().getDefaultPrice().doubleValue() * newValue.getValue()))
                     ));
 
             productAndAmounts.forEach((key, value) ->
