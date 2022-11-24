@@ -14,7 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 @WebServlet(urlPatterns = {"/shopping-cart"})
@@ -34,7 +35,8 @@ public class CartController extends HttpServlet {
             AtomicReference<Double> totalSum = new AtomicReference<>(0.0);
             productAndAmounts.forEach((key, value) ->
                     productAndAmounts.entrySet().forEach((newValue) ->
-                    allProductInfo.put(newValue, (double) Math.round(newValue.getKey().getDefaultPrice().doubleValue() * newValue.getValue()))
+                            allProductInfo.put(newValue, (double) Math
+                                    .round(newValue.getKey().getDefaultPrice().doubleValue() * newValue.getValue()))
                     ));
 
             productAndAmounts.forEach((key, value) ->

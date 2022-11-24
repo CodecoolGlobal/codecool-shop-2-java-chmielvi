@@ -61,10 +61,11 @@
 
                     </div>
                     <div class="counter">
+
+                        <div th:attr="product=${mapEntry.key.id}" class="btnCart minus">-</div>
+                        <div th:attr="product=${mapEntry.key.id}" class="count" th:text="${mapEntry.value}"></div>
                         <div th:attr="product=${mapEntry.key.id}" class="btnCart plus">+</div>
 
-                        <div th:attr="product=${mapEntry.key.id}" class="count" th:text="${mapEntry.value}"></div>
-                        <div th:attr="product=${mapEntry.key.id}" class="btnCart minus">-</div>
                     </div>
                     <div class="prices">
                         <div th:attr="product=${mapEntry.key.id}" class="amount" th:text="${item.value}">price>Price</div>

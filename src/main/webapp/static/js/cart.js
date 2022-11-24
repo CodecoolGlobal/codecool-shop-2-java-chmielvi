@@ -64,8 +64,10 @@ async function decreaseQuantity(event) {
 
 async function apiPost(url) {
     let response = await fetch(url, {
-
         method: "POST",
     });
     console.log(response)
+    /*if (response.ok) {
+        return await response.json();
+    }*/
 }

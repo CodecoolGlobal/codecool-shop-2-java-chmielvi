@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -29,20 +30,24 @@ public class ApiEditCartQuantity extends HttpServlet implements JSONConverter {
         System.out.println(quantityChanger);
         DatabaseManager databaseManager = DatabaseManager.getInstance();
         int userId = databaseManager.getUserObject(userName).getId();
-        //List<Product> products = databaseManager.getProductsByCategory(Integer.parseInt(categoryId));
         if (quantityChanger.equals("minus")) {
             databaseManager.removeProductFromCart(Integer.parseInt(productId), userId);
         } else if (quantityChanger.equals("plus")) {
             databaseManager.addProductToCart(userId, Integer.parseInt(productId));
         }
 
-        //PrintWriter out = response.getWriter();
-        //String json = gson.toJson(products);
-        //System.out.println(json);
-        /*response.setContentType("api/json");
+        //TODO response
+        /*PrintWriter out = response.getWriter();
+        //String json1 = gson.toJson(productId);
+        String json = "{ \"productId\" : " + productId +", \"changer\" : " + quantityChanger +"}";
+        //String json2 = gson.toJson(quantityChanger);
+        System.out.println(json);
+        //System.out.println(json2);
+        response.setContentType("api/json");
         response.setCharacterEncoding("UTF-8");
-        out.print(json);*/
-        //out.flush();
+        out.print(json);
+        //out.print(json2);
+        out.flush();*/
     }
 }
 
